@@ -1,0 +1,24 @@
+spring:
+  output:
+    ansi:
+      enabled: always
+  datasource:
+    username: root
+    url: jdbc:mysql://monorail.proxy.rlwy.net:29829/railway
+    password: Ebhgf6CCfhAHa26E1H132e1Ac6gc2D-4
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: none
+  redis:
+    host: ${REDIS_HOST:localhost} # Default to "localhost" if not provided
+    port: ${REDIS_PORT:6379}      # Default to "6379" if not provided
+jwt:
+  token:
+    secret-key: 5yQXIefRFbsJaeGQNBCoEcF2pr0f3hgR5yQXIefRFbsJaeGQNBCoEcF2pr0f3hgR
+    expiration: '864000000'
+  refresh-token:
+    expiration: '604800000'
