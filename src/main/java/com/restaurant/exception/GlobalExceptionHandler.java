@@ -1,4 +1,4 @@
-package com.restaurant.exception.handler;
+package com.restaurant.exception;
 
 import com.restaurant.dto.ErrorResponse;
 import com.restaurant.exception.BadRequestException;

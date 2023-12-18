@@ -18,7 +18,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-
+    implementation "org.springframework.boot:spring-boot-starter-data-redis"
+    implementation "io.lettuce:lettuce-core:6.2.6.RELEASE"
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.0'
+    implementation 'org.springframework.boot:spring-boot-starter-cache:2.4.3'
 
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'mysql:mysql-connector-java:8.0.33'
@@ -28,7 +32,6 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.11.5' // Use the latest version available
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5' // Use the same version as jjwt-api
     runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // Use the same version as jjwt-api
-
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
@@ -43,9 +46,6 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-jacoco
-
 
 bootJar {
     enabled = true

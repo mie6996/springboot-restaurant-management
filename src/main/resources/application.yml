@@ -13,12 +13,16 @@ spring:
     show-sql: 'true'
     hibernate:
       ddl-auto: none
-  redis:
-    host: ${REDIS_HOST:localhost} # Default to "localhost" if not provided
-    port: ${REDIS_PORT:6379}      # Default to "6379" if not provided
+
 jwt:
   token:
     secret-key: 5yQXIefRFbsJaeGQNBCoEcF2pr0f3hgR5yQXIefRFbsJaeGQNBCoEcF2pr0f3hgR
     expiration: '864000000'
   refresh-token:
     expiration: '604800000'
+
+redis:
+  host: ${REDIS_HOST} # Default to "localhost" if not provided
+  password: ${REDIS_PASSWORD}   # Default to no password if not provided
+  port: ${REDIS_PORT}      # Default to "6379" if not provided
+  connectTimeoutInSecond: 60 # ms

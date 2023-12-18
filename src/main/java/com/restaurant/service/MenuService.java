@@ -1,6 +1,7 @@
 package com.restaurant.service;
 
 import com.restaurant.entity.Menu;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 
 /**
@@ -16,6 +17,7 @@ public interface MenuService {
 
     void delete(Long id);
 
+    @Cacheable(value = "menus", key = "{#id}")
     Menu findById(Long id);
 
 }

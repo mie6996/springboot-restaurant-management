@@ -13,7 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SecurityConfiguration {
+public class SecurityConfig {
 
     private static final String LOGIN_ENDPOINT = "/api/v1/auth/**";
     private static final String USERS_ENDPOINT = "/api/v1/users/**";
@@ -30,6 +30,8 @@ public class SecurityConfiguration {
             .requestMatchers(LOGIN_ENDPOINT)
             .permitAll()
             .requestMatchers(USERS_ENDPOINT)
+            .permitAll()
+            .requestMatchers("/api/v1/**")
             .permitAll()
             .anyRequest()
             .authenticated()
