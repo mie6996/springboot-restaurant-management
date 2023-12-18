@@ -3,9 +3,9 @@ spring:
     ansi:
       enabled: always
   datasource:
-    username: root
-    url: jdbc:mysql://monorail.proxy.rlwy.net:29829/railway
-    password: Ebhgf6CCfhAHa26E1H132e1Ac6gc2D-4
+    url: ${SQL_DATABASE_URL}
+    username: ${SQL_USERNAME:root}
+    password: ${SQL_PASSWORD:12345678a}
   jpa:
     properties:
       hibernate:
