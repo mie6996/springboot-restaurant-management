@@ -13,9 +13,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class OrderItemResponseDto {
-    Long id;
-    Menu menu;
-    Date orderTime;
-    Integer quantity;
-    Double totalPrice;
+  Long id;
+  Menu menu;
+  Date orderTime;
+  Integer quantity;
+  Double totalPrice;
 }

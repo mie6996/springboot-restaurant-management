@@ -25,22 +25,22 @@ import java.util.List;
 @Table(name = "Orders")
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
 
-    @Column(name = "total_price", nullable = false)
-    Double totalPrice;
+  @Column(name = "total_price", nullable = false)
+  Double totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    List<OrderItem> orderItems;
+  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+  List<OrderItem> orderItems;
 
-    public void calculateTotalPrice() {
-        totalPrice = (double) Math.round(orderItems.stream().mapToDouble(OrderItem::getTotalPrice).sum() * 100.0) / 100.0;
-    }
+  public void calculateTotalPrice() {
+    totalPrice = (double) Math.round(orderItems.stream().mapToDouble(OrderItem::getTotalPrice).sum() * 100.0) / 100.0;
+  }
 
-    public boolean addOrderItem(OrderItem orderItem) {
-        return orderItems.add(orderItem);
-    }
+  public boolean addOrderItem(OrderItem orderItem) {
+    return orderItems.add(orderItem);
+  }
 
 }

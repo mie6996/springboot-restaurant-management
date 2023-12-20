@@ -16,8 +16,8 @@ import java.util.List;
 @Builder
 public class OrderRequestDto {
 
-    @NotNull(message = "Order items is required!")
-    @NotEmpty(message = "Order items is required!")
-    List<@Valid OrderItemRequestDto> orderItems;
+  @NotNull(message = "Order items is required!")
+  @NotEmpty(message = "Order items is required!")
+  List<@Valid OrderItemRequestDto> orderItems;
 
 }

@@ -28,4 +28,8 @@
         <level value="DEBUG"/>
     </logger>
 
+    <logger name="org.jooq">
+        <level value="DEBUG"/>
+    </logger>
+
 </configuration>

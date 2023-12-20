@@ -6,8 +6,8 @@ import com.restaurant.dto.RegisterRequestDto;
 
 public interface AuthenticationService {
 
-    AuthenticationResponseDto register(RegisterRequestDto requestDto);
+  AuthenticationResponseDto register(RegisterRequestDto requestDto);
 
-    AuthenticationResponseDto login(LoginRequestDto requestDto);
+  AuthenticationResponseDto login(LoginRequestDto requestDto);
 
 }

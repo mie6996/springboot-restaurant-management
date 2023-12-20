@@ -1,0 +1,7 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = '8.21'
+    showViolations = true
+    configFile = file("${rootDir}/config/checkstyle.xml")
+}

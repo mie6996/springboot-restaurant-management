@@ -32,40 +32,41 @@ import java.util.List;
 @Table(name = "Menus")
 public class Menu {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
 
-    @Column(nullable = false)
-    @NotNull(message = "Name is required!")
-    @NotEmpty(message = "Name is required!")
-    @Pattern(regexp = ".*\\S+.*", message = "Name is required")
-    @Size(min = 2, message = "Name should have at least 2 characters!")
-    String name;
+  @Column(name = "name", nullable = false)
+  @NotNull(message = "Name is required!")
+  @NotEmpty(message = "Name is required!")
+  @Pattern(regexp = ".*\\S+.*", message = "Name is required")
+  @Size(min = 2, message = "Name should have at least 2 characters!")
+  String name;
 
-    @URL(message = "Link image must be a valid URL!")
-    @Column(nullable = false)
-    String image;
+  @URL(message = "Link image must be a valid URL!")
+  @Column(name = "image", nullable = false)
+  String image;
 
-    @Column(nullable = false)
-    @NotNull(message = "Price is required!")
-    @Positive(message = "Price must be greater than 0!")
-    Double price;
+  @Column(name = "price", nullable = false)
+  @NotNull(message = "Price is required!")
+  @Positive(message = "Price must be greater than 0!")
+  Double price;
 
-    @Column(name = "additional_details")
-    @NotNull(message = "Additional details is required!")
-    @NotEmpty(message = "Additional details is required!")
-    @Pattern(regexp = ".*\\S+.*", message = "Additional details is required!")
-    String additionalDetails;
+  @Column(name = "additional_details")
+  @NotNull(message = "Additional details is required!")
+  @NotEmpty(message = "Additional details is required!")
+  @Pattern(regexp = ".*\\S+.*", message = "Additional details is required!")
+  String additionalDetails;
 
-    String description;
+  @Column(name = "description")
+  String description;
 
-    @Column(columnDefinition = "boolean default true")
-    @JsonIgnore
-    Boolean isActive;
+  @Column(name = "is_active", columnDefinition = "boolean default true")
+  @JsonIgnore
+  Boolean isActive;
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
-    @JsonIgnore
-    List<OrderItem> orderItems;
+  @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
+  @JsonIgnore
+  List<OrderItem> orderItems;
 
 }

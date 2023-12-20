@@ -4,15 +4,15 @@ spring:
       enabled: always
   datasource:
     url: ${SQL_DATABASE_URL}
-    username: ${SQL_USERNAME:root}
-    password: ${SQL_PASSWORD:12345678a}
+    username: ${SQL_USERNAME}
+    password: ${SQL_PASSWORD}
   jpa:
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: 'true'
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
 
 jwt:
   token:
@@ -23,6 +23,5 @@ jwt:
 
 redis:
   host: ${REDIS_HOST} # Default to "localhost" if not provided
-  password: ${REDIS_PASSWORD}   # Default to no password if not provided
   port: ${REDIS_PORT}      # Default to "6379" if not provided
   connectTimeoutInSecond: 60 # ms

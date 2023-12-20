@@ -9,12 +9,12 @@ import org.springframework.data.domain.Page;
  */
 public interface OrderService {
 
-    Order create(OrderRequestDto dto);
+  Order create(OrderRequestDto dto);
 
-    Page<Order> getAll(Integer limit, Integer offset);
+  Page<Order> getAll(Integer limit, Integer offset);
 
-    void delete(Long id);
+  void delete(Long id);
 
-    Order findById(Long id);
+  Order findById(Long id);
 
 }

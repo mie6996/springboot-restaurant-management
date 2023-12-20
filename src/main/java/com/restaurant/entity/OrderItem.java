@@ -26,29 +26,29 @@ import java.util.Date;
 @Table(name = "OrderItems")
 public class OrderItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "menu_id", nullable = false, referencedColumnName = "id")
-    Menu menu;
+  @ManyToOne
+  @JoinColumn(name = "menu_id", nullable = false, referencedColumnName = "id")
+  Menu menu;
 
-    @Column(name = "order_time")
-    Date orderTime;
+  @Column(name = "order_time")
+  Date orderTime;
 
-    @Column(name = "total_price")
-    Double totalPrice;
+  @Column(name = "total_price")
+  Double totalPrice;
 
-    Integer quantity;
+  Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    @JsonIgnore
-    Order order;
+  @ManyToOne
+  @JoinColumn(name = "order_id", referencedColumnName = "id")
+  @JsonIgnore
+  Order order;
 
-    public void calculateTotalPrice() {
-        totalPrice = (double) Math.round(menu.getPrice() * quantity * 100.0)  / 100.0;
-    }
+  public void calculateTotalPrice() {
+    totalPrice = (double) Math.round(menu.getPrice() * quantity * 100.0) / 100.0;
+  }
 
 }

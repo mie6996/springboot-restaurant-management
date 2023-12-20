@@ -17,22 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService service;
+  private final AuthenticationService service;
 
-    @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequestDto requestDto) {
+  @PostMapping("/register")
+  public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequestDto requestDto) {
 
-        return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.builder()
-                .success(true)
-                .data(service.register(requestDto))
-                .message("Login successfully!")
-                .build());
+    return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.builder()
+            .success(true)
+            .data(service.register(requestDto))
+            .message("Login successfully!")
+            .build());
 
-    }
+  }
 
-    @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequestDto requestDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(service.login(requestDto));
-    }
+  @PostMapping("/login")
+  public ResponseEntity login(@RequestBody LoginRequestDto requestDto) {
+    return ResponseEntity.status(HttpStatus.OK).body(service.login(requestDto));
+  }
 
 }

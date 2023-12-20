@@ -8,12 +8,12 @@ import com.restaurant.entity.OrderItem;
  */
 public interface OrderItemService {
 
-    OrderItem findById(Long id);
+  OrderItem findById(Long id);
 
-    OrderItem create(Long orderId, OrderItemRequestDto dto);
+  OrderItem create(Long orderId, OrderItemRequestDto dto);
 
-    OrderItem update(Long orderId, Long orderItemId, OrderItemRequestDto dto);
+  OrderItem update(Long orderId, Long orderItemId, OrderItemRequestDto dto);
 
-    void delete(Long orderId, Long orderItemId);
+  void delete(Long orderId, Long orderItemId);
 
 }

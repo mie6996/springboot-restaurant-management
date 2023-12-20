@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+/mysql-data
+/redis-data
+/postgres-data

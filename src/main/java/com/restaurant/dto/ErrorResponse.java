@@ -17,23 +17,23 @@ import java.util.Map;
 @Builder
 public class ErrorResponse {
 
-    Boolean success;
-    String code;
-    String message;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    Map<String, String> validationErrors;
+  Boolean success;
+  String code;
+  String message;
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  Map<String, String> validationErrors;
 
-    public ErrorResponse(String code, String message) {
-        this.success = false;
-        this.code = code;
-        this.message = message;
-    }
+  public ErrorResponse(String code, String message) {
+    this.success = false;
+    this.code = code;
+    this.message = message;
+  }
 
-    public ErrorResponse(String code, String message, Map<String, String> validationErrors) {
-        this.success = false;
-        this.code = code;
-        this.message = message;
-        this.validationErrors = validationErrors;
-    }
+  public ErrorResponse(String code, String message, Map<String, String> validationErrors) {
+    this.success = false;
+    this.code = code;
+    this.message = message;
+    this.validationErrors = validationErrors;
+  }
 
 }
