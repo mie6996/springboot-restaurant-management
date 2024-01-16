@@ -98,10 +98,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
 
-  // Handle uncaught exception
-  @ExceptionHandler({Exception.class})
-  protected ResponseEntity<ErrorResponse> handleUncaughtException(RuntimeException exception) {
-    ErrorResponse error = new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.toString(), exception.getMessage());
-    return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-  }
 }

@@ -22,6 +22,7 @@ jwt:
     expiration: '604800000'
 
 redis:
-  host: ${REDIS_HOST} # Default to "localhost" if not provided
-  port: ${REDIS_PORT}      # Default to "6379" if not provided
+  host: ${REDIS_HOST}
+  port: ${REDIS_PORT}
+  password: ${REDIS_PASSWORD}
   connectTimeoutInSecond: 60 # ms

@@ -12,7 +12,6 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 
-
 @Configuration
 public class RedisConfig {
   @Value("${redis.host}")
@@ -21,9 +20,16 @@ public class RedisConfig {
   @Value("${redis.port}")
   private int redisPort;
 
+  @Value("${redis.password}")
+  private String redisPassword;
+
   @Bean
   public LettuceConnectionFactory redisConnectionFactory() {
-    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(redisHost, redisPort);
+    RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
+    redisStandaloneConfiguration.setHostName(redisHost);
+    redisStandaloneConfiguration.setPort(redisPort);
+    redisStandaloneConfiguration.setUsername("default");
+    redisStandaloneConfiguration.setPassword(redisPassword);
     return new LettuceConnectionFactory(redisStandaloneConfiguration);
   }
 
@@ -32,9 +38,10 @@ public class RedisConfig {
     RedisCacheManagerBuilder redisCacheManagerDefault = RedisCacheManagerBuilder
             .fromConnectionFactory(lettuceConnectionFactory)
             .cacheDefaults(RedisCacheConfiguration
-                    .defaultCacheConfig()
-                    .entryTtl(java.time.Duration.ofMinutes(1))
-                    .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer())));
+            .defaultCacheConfig()
+            .entryTtl(RedisCacheConfiguration.defaultCacheConfig().getTtl())
+            .serializeValuesWith(RedisSerializationContext.SerializationPair
+                    .fromSerializer(new GenericJackson2JsonRedisSerializer())));
     return redisCacheManagerDefault.build();
   }
 }
