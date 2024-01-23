@@ -4,6 +4,7 @@ import com.restaurant.dto.ApiResponse;
 import com.restaurant.dto.LoginRequestDto;
 import com.restaurant.dto.RegisterRequestDto;
 import com.restaurant.service.AuthenticationService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "/api/v1/auth")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AuthenticationController {
 
   private final AuthenticationService service;

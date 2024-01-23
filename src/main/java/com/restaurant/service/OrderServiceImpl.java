@@ -8,7 +8,8 @@ import com.restaurant.entity.OrderItem;
 import com.restaurant.exception.NoContentException;
 import com.restaurant.repository.MenuRepository;
 import com.restaurant.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * This class provides an implementation of the OrderService interface.
  */
 @Service
+@AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
-
-  @Autowired
   private MenuRepository menuRepository;
-
-  @Autowired
   private OrderRepository orderRepository;
 
   /**
@@ -42,13 +40,11 @@ public class OrderServiceImpl implements OrderService {
    */
   @Override
   public Page<Order> getAll(Integer limit, Integer offset) {
-
     if (limit < 0 || offset < 0 || offset > 1000) {
       throw new IllegalArgumentException("Page limit and offset must be positive");
     }
 
     PageRequest pageRequest = PageRequest.of(offset, limit);
-
     return orderRepository.findAll(pageRequest);
 
   }
@@ -91,7 +87,7 @@ public class OrderServiceImpl implements OrderService {
     updateOrderItemRequestDtos.forEach(orderItemRequestDto -> {
       Optional<Menu> optionalMenu = menuRepository.findById(orderItemRequestDto.getMenuId());
 
-      // Check menu is exists
+      // Check menu is existed
       if (optionalMenu.isEmpty()) {
         throw new NoContentException("The menu does not exist!");
       }
@@ -128,7 +124,7 @@ public class OrderServiceImpl implements OrderService {
   @Override
   public void delete(Long id) {
 
-    // Check order has id is exists
+    // Check order has id is existed
     Order foundOrder = orderRepository.findById(id)
             .orElseThrow(() -> new NoContentException("The order is not found!"));
 
@@ -145,9 +141,8 @@ public class OrderServiceImpl implements OrderService {
    */
   @Override
   public Order findById(Long id) {
-    // Check order has id is exists
-    return orderRepository.findById(id)
-            .orElseThrow(() -> new NoContentException("The order is not found!"));
+    // Check order has id is existed
+    return orderRepository.findById(id).orElseThrow(() -> new NoContentException("The order is not found!"));
 
   }
 

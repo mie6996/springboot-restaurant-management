@@ -5,7 +5,9 @@ import com.restaurant.exception.NoContentException;
 import com.restaurant.exception.RepeatDataException;
 import com.restaurant.mapper.ObjectMapper;
 import com.restaurant.repository.MenuRepository;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,10 +22,8 @@ import static com.restaurant.util.Utils.removeSpaces;
  * This class provides an implementation of the MenuService interface.
  */
 @Service
-@NoArgsConstructor
+@AllArgsConstructor
 public class MenuServiceImpl implements MenuService {
-
-  @Autowired
   private MenuRepository repository;
 
   /**

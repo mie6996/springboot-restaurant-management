@@ -1,5 +1,6 @@
 package com.restaurant.config;
 
+import lombok.RequiredArgsConstructor;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
@@ -15,8 +16,8 @@ import javax.sql.DataSource;
 
 @Component
 @Configuration
+@RequiredArgsConstructor
 public class JooqConfig {
-  @Autowired
   private DataSource dataSource;
 
   @Bean

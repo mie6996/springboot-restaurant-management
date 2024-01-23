@@ -17,7 +17,6 @@ import java.util.Map;
 
 @Service
 public class JwtService {
-
   @Value("${jwt.token.secret-key}")
   private String SECRET_KEY;
   @Value("${jwt.token.expiration}")
@@ -42,8 +41,7 @@ public class JwtService {
           Map<String, Object> extraClaims,
           UserDetails userDetails
   ) {
-    return Jwts
-            .builder()
+    return Jwts.builder()
             .setClaims(extraClaims)
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -66,8 +64,7 @@ public class JwtService {
   }
 
   private Claims extractAllClaims(String token) {
-    return Jwts
-            .parserBuilder()
+    return Jwts.parserBuilder()
             .setSigningKey(getSignInKey())
             .build()
             .parseClaimsJws(token)

@@ -3,7 +3,7 @@ spring:
     ansi:
       enabled: always
   datasource:
-    url: ${SQL_DATABASE_URL}
+    url: jdbc:postgresql://${SQL_HOST}:${SQL_PORT}/${SQL_DATABASE}
     username: ${SQL_USERNAME}
     password: ${SQL_PASSWORD}
   jpa:

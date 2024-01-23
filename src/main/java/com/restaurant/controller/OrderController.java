@@ -6,7 +6,8 @@ import com.restaurant.dto.OrderRequestDto;
 import com.restaurant.service.OrderItemService;
 import com.restaurant.service.OrderService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,13 +27,12 @@ import static com.restaurant.constant.Constants.OFFSET_DEFAULT;
  * Bill controller
  */
 @RestController
-@RequestMapping("/api/v1/orders/")
+@AllArgsConstructor
+@RequestMapping("/api/v1/orders")
 public class OrderController {
 
-  @Autowired
   private OrderService orderService;
 
-  @Autowired
   private OrderItemService orderItemService;
 
   /**
@@ -42,7 +42,7 @@ public class OrderController {
    * @param offset offset to start returning orders from
    * @return response containing list of orders
    */
-  @GetMapping("")
+  @GetMapping("/")
   public ResponseEntity<ApiResponse> getAll(@RequestParam(defaultValue = LIMIT_DEFAULT) Integer limit,
                                             @RequestParam(defaultValue = OFFSET_DEFAULT) Integer offset) {
 
@@ -61,7 +61,7 @@ public class OrderController {
    * @param order the new order to create
    * @return response containing the created order
    */
-  @PostMapping("")
+  @PostMapping("/")
   public ResponseEntity<ApiResponse> create(@Valid @RequestBody OrderRequestDto order) {
 
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -79,7 +79,7 @@ public class OrderController {
    * @param id the id of the order to find
    * @return response containing the found order
    */
-  @GetMapping("{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<ApiResponse> getById(@PathVariable Long id) {
 
     return ResponseEntity.status(HttpStatus.OK)
@@ -98,7 +98,7 @@ public class OrderController {
    * @return response indicating success or failure
    */
 
-  @DeleteMapping("{id}")
+  @DeleteMapping("/{id}")
   public ResponseEntity<ApiResponse> delete(@PathVariable Long id) {
 
     orderService.delete(id);
@@ -117,7 +117,7 @@ public class OrderController {
    * @return response containing the found order item
    */
 
-  @GetMapping("{orderId}/order-items")
+  @GetMapping("/{orderId}/order-items")
   public ResponseEntity<ApiResponse> getOrderItemById(@RequestParam(name = "id") Long itemId) {
 
     return ResponseEntity.status(HttpStatus.OK)
@@ -136,7 +136,7 @@ public class OrderController {
    * @param dto     the order item to add
    * @return response containing the created order item
    */
-  @PostMapping("{orderId}/order-items")
+  @PostMapping("/{orderId}/order-items")
   public ResponseEntity<ApiResponse> addOrderItem(@PathVariable Long orderId, @Valid @RequestBody OrderItemRequestDto dto) {
 
     return ResponseEntity.status(HttpStatus.OK)
@@ -155,7 +155,7 @@ public class OrderController {
    * @param dto     the new values for the order item
    * @return response containing the updated order item
    */
-  @PutMapping("{orderId}/order-items")
+  @PutMapping("/{orderId}/order-items")
   public ResponseEntity<ApiResponse> updateOrderItem(@PathVariable Long orderId, @RequestParam(name = "id") Long itemId,
                                                      @Valid @RequestBody OrderItemRequestDto dto) {
 
@@ -175,7 +175,7 @@ public class OrderController {
    * @param itemId  the id of the item to remove
    * @return response indicating success or failure
    */
-  @DeleteMapping("{orderId}/order-items")
+  @DeleteMapping("/{orderId}/order-items")
   public ResponseEntity<ApiResponse> removeOrderItem(@PathVariable Long orderId, @RequestParam(name = "id") Long itemId) {
 
     orderItemService.delete(orderId, itemId);

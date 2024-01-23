@@ -8,6 +8,8 @@ import com.restaurant.exception.NoContentException;
 import com.restaurant.repository.MenuRepository;
 import com.restaurant.repository.OrderItemRepository;
 import com.restaurant.repository.OrderRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,17 +22,11 @@ import java.util.Objects;
  * This class provides an implementation of the OrderItemService interface.
  */
 @Service
+@AllArgsConstructor
 public class OrderItemServiceImpl implements OrderItemService {
-
-  @Autowired
   private OrderRepository orderRepository;
-
-  @Autowired
   private OrderItemRepository orderItemRepository;
-
-  @Autowired
   private MenuRepository menuRepository;
-
 
   /**
    * Check order item is in order or not
@@ -40,7 +36,6 @@ public class OrderItemServiceImpl implements OrderItemService {
    * @return true if order item is in order, otherwise
    */
   private boolean isOrderItemExistInOrder(Order order, OrderItem orderItem) {
-
     for (OrderItem item : order.getOrderItems()) {
       if (Objects.equals(item, orderItem)) {
         return true;
@@ -60,7 +55,6 @@ public class OrderItemServiceImpl implements OrderItemService {
    */
   @Override
   public OrderItem create(Long orderId, OrderItemRequestDto dto) {
-
     Long menuId = dto.getMenuId();
     Integer quantity = dto.getQuantity();
 
@@ -110,7 +104,6 @@ public class OrderItemServiceImpl implements OrderItemService {
    */
   @Override
   public OrderItem update(Long orderId, Long orderItemId, OrderItemRequestDto dto) {
-
     Integer quantity = dto.getQuantity();
 
     // Check order exists
@@ -155,7 +148,6 @@ public class OrderItemServiceImpl implements OrderItemService {
   @Transactional
   @Override
   public void delete(Long orderId, Long orderItemId) {
-
     Order foundOrder = orderRepository.findById(orderId)
             .orElseThrow(() -> new NoContentException("Order has id = " + orderId + " does not exist!"));
 
@@ -189,9 +181,10 @@ public class OrderItemServiceImpl implements OrderItemService {
    */
   @Override
   public OrderItem findById(Long id) {
-
-    return orderItemRepository.findById(id)
+    return orderItemRepository
+            .findById(id)
             .orElseThrow(() -> new NoContentException("This order item does not exist!"));
 
   }
+
 }
