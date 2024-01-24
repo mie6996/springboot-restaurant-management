@@ -9,8 +9,6 @@ import com.restaurant.repository.MenuRepository;
 import com.restaurant.repository.OrderItemRepository;
 import com.restaurant.repository.OrderRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

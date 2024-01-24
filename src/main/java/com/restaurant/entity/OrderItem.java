@@ -19,13 +19,12 @@ import java.util.Date;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "OrderItems")
 public class OrderItem {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;

@@ -9,7 +9,6 @@ import com.restaurant.exception.NoContentException;
 import com.restaurant.repository.MenuRepository;
 import com.restaurant.repository.OrderRepository;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -58,7 +57,6 @@ public class OrderServiceImpl implements OrderService {
    */
   @Override
   public Order create(OrderRequestDto order) {
-
     List<OrderItemRequestDto> orderItemRequestDtos = order.getOrderItems();
     List<OrderItemRequestDto> updateOrderItemRequestDtos = new ArrayList<>();
     List<OrderItem> orderItems = new ArrayList<>();
@@ -108,7 +106,6 @@ public class OrderServiceImpl implements OrderService {
 
     Order newOrder = Order.builder().orderItems(orderItems).build();
     newOrder.calculateTotalPrice();
-
     orderItems.forEach(orderItem -> orderItem.setOrder(newOrder));
 
     return orderRepository.save(newOrder);
@@ -123,7 +120,6 @@ public class OrderServiceImpl implements OrderService {
    */
   @Override
   public void delete(Long id) {
-
     // Check order has id is existed
     Order foundOrder = orderRepository.findById(id)
             .orElseThrow(() -> new NoContentException("The order is not found!"));
@@ -143,7 +139,6 @@ public class OrderServiceImpl implements OrderService {
   public Order findById(Long id) {
     // Check order has id is existed
     return orderRepository.findById(id).orElseThrow(() -> new NoContentException("The order is not found!"));
-
   }
 
 }

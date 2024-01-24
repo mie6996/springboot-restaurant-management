@@ -18,13 +18,12 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "Orders")
 public class Order {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;

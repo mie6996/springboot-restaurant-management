@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long> {
-
   Page<Order> findAll(Pageable pageable);
 
 }

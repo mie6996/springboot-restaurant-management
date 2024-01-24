@@ -2,7 +2,6 @@ package com.restaurant.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +36,11 @@ public class JwtService {
     return generateAccessToken(new HashMap<>(), userDetails);
   }
 
+  public String generateRefreshToken() {
+    return generateRefreshToken(new HashMap<>());
+  }
+
+
   public String generateAccessToken(
           Map<String, Object> extraClaims,
           UserDetails userDetails
@@ -46,9 +50,19 @@ public class JwtService {
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION))
-            .signWith(SignatureAlgorithm.HS256, getSignInKey())
+            .signWith(getSignInKey())
             .compact();
   }
+
+  public String generateRefreshToken(Map<String, Object> extraClaims) {
+    return Jwts.builder()
+            .setClaims(extraClaims)
+            .setIssuedAt(new Date(System.currentTimeMillis()))
+            .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION))
+            .signWith(getSignInKey())
+            .compact();
+  }
+
 
   public boolean isTokenValid(String token, UserDetails userDetails) {
     final String username = extractUsername(token);

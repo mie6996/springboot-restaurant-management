@@ -9,13 +9,14 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class OrderItemResponseDto {
   Long id;
   Menu menu;
   Date orderTime;
   Integer quantity;
   Double totalPrice;
+
 }

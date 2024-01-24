@@ -99,7 +99,7 @@ public class MenuRepository {
                     .set(field("price"), menu.getPrice())
                     .returning(field("id", Long.class))
                     .fetchOne())
-                    .into(Long.class);
+            .into(Long.class);
 
     menu.setId(id);
     return menu;
@@ -127,4 +127,5 @@ public class MenuRepository {
 
     return menu;
   }
+
 }

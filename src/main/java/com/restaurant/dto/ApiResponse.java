@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApiResponse implements Serializable {
   Boolean success;
   String message;

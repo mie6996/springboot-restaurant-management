@@ -8,11 +8,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResponseObject {
   String status;
   String message;
   Object data;
+
 }

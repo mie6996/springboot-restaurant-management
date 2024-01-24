@@ -39,7 +39,7 @@ public class MenuController {
    * @param keyword  keyword to search menu names, descriptions, and additional details by
    * @return response containing list of menus
    */
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<ApiResponse> getAll(@RequestParam(required = false) String keyword,
                                             @RequestParam(defaultValue = LIMIT_DEFAULT) Integer limit,
                                             @RequestParam(defaultValue = OFFSET_DEFAULT) Integer offset,
@@ -58,7 +58,7 @@ public class MenuController {
    * @param menu the new menu to create
    * @return response containing the created menu
    */
-  @PostMapping("/")
+  @PostMapping("")
   public ResponseEntity<ApiResponse> create(@Valid @RequestBody Menu menu) {
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.builder()
                     .data(service.create(menu))

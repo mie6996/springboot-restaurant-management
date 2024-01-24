@@ -44,4 +44,5 @@ public class RedisConfig {
                     .fromSerializer(new GenericJackson2JsonRedisSerializer())));
     return redisCacheManagerDefault.build();
   }
+  
 }

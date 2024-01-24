@@ -1,11 +1,10 @@
 package com.restaurant.config;
 
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;
 import org.jooq.impl.DefaultDSLContext;
 import org.jooq.impl.DefaultExecuteListenerProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.jooq.JooqExceptionTranslator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,7 @@ import javax.sql.DataSource;
 
 @Component
 @Configuration
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class JooqConfig {
   private DataSource dataSource;
 

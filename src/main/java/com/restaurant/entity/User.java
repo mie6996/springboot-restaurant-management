@@ -21,13 +21,12 @@ import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "Users")
 public class User implements UserDetails {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

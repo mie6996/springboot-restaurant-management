@@ -8,13 +8,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class OrderItemRequestDto {
-
   Long id;
-
   Long menuId;
 
   @NotNull(message = "Quantity is required!")

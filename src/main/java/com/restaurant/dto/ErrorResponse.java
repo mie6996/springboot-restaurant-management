@@ -12,11 +12,10 @@ import java.util.Map;
  * ErrorResponse
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ErrorResponse {
-
   Boolean success;
   String code;
   String message;

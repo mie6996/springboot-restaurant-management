@@ -11,11 +11,10 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class OrderRequestDto {
-
   @NotNull(message = "Order items is required!")
   @NotEmpty(message = "Order items is required!")
   List<@Valid OrderItemRequestDto> orderItems;

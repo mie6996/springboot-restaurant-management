@@ -7,7 +7,6 @@ import com.restaurant.service.OrderItemService;
 import com.restaurant.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,9 +29,7 @@ import static com.restaurant.constant.Constants.OFFSET_DEFAULT;
 @AllArgsConstructor
 @RequestMapping("/api/v1/orders")
 public class OrderController {
-
   private OrderService orderService;
-
   private OrderItemService orderItemService;
 
   /**
@@ -42,16 +39,16 @@ public class OrderController {
    * @param offset offset to start returning orders from
    * @return response containing list of orders
    */
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<ApiResponse> getAll(@RequestParam(defaultValue = LIMIT_DEFAULT) Integer limit,
                                             @RequestParam(defaultValue = OFFSET_DEFAULT) Integer offset) {
 
     return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .message("Get orders successfully!")
-                    .data(orderService.getAll(limit, offset))
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .message("Get orders successfully!")
+        .data(orderService.getAll(limit, offset))
+        .build());
 
   }
 
@@ -61,15 +58,14 @@ public class OrderController {
    * @param order the new order to create
    * @return response containing the created order
    */
-  @PostMapping("/")
+  @PostMapping("")
   public ResponseEntity<ApiResponse> create(@Valid @RequestBody OrderRequestDto order) {
-
     return ResponseEntity.status(HttpStatus.CREATED)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .data(orderService.create(order))
-                    .message("Create order successfully!")
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .data(orderService.create(order))
+        .message("Create order successfully!")
+        .build());
 
   }
 
@@ -83,11 +79,11 @@ public class OrderController {
   public ResponseEntity<ApiResponse> getById(@PathVariable Long id) {
 
     return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .data(orderService.findById(id))
-                    .message("Get order has id = " + id + " successfully!")
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .data(orderService.findById(id))
+        .message("Get order has id = " + id + " successfully!")
+        .build());
 
   }
 
@@ -103,10 +99,10 @@ public class OrderController {
 
     orderService.delete(id);
     return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .message("Delete order has id = " + id + " successfully!")
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .message("Delete order has id = " + id + " successfully!")
+        .build());
 
   }
 
@@ -121,11 +117,11 @@ public class OrderController {
   public ResponseEntity<ApiResponse> getOrderItemById(@RequestParam(name = "id") Long itemId) {
 
     return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .data(orderItemService.findById(itemId))
-                    .message("Get order item has id = " + itemId + " successfully!")
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .data(orderItemService.findById(itemId))
+        .message("Get order item has id = " + itemId + " successfully!")
+        .build());
 
   }
 
@@ -138,13 +134,12 @@ public class OrderController {
    */
   @PostMapping("/{orderId}/order-items")
   public ResponseEntity<ApiResponse> addOrderItem(@PathVariable Long orderId, @Valid @RequestBody OrderItemRequestDto dto) {
-
     return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .data(orderItemService.create(orderId, dto))
-                    .message("Add new order item to order has id = " + orderId + " successfully!")
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .data(orderItemService.create(orderId, dto))
+        .message("Add new order item to order has id = " + orderId + " successfully!")
+        .build());
   }
 
   /**
@@ -160,11 +155,11 @@ public class OrderController {
                                                      @Valid @RequestBody OrderItemRequestDto dto) {
 
     return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .data(orderItemService.update(orderId, itemId, dto))
-                    .message("Update order has id = " + orderId + " successfully!")
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .data(orderItemService.update(orderId, itemId, dto))
+        .message("Update order has id = " + orderId + " successfully!")
+        .build());
 
   }
 
@@ -180,10 +175,10 @@ public class OrderController {
 
     orderItemService.delete(orderId, itemId);
     return ResponseEntity.status(HttpStatus.OK)
-            .body(ApiResponse.builder()
-                    .success(true)
-                    .message("Delete order item has id = " + itemId + " successfully!")
-                    .build());
+      .body(ApiResponse.builder()
+        .success(true)
+        .message("Delete order item has id = " + itemId + " successfully!")
+        .build());
 
   }
 
