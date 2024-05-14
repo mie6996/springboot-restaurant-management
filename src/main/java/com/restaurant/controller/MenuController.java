@@ -5,6 +5,7 @@ import com.restaurant.entity.Menu;
 import com.restaurant.service.MenuService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +24,7 @@ import static com.restaurant.constant.Constants.OFFSET_DEFAULT;
 /**
  * Menu controller
  */
+@Slf4j
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/menus")
@@ -44,6 +46,7 @@ public class MenuController {
                                             @RequestParam(defaultValue = LIMIT_DEFAULT) Integer limit,
                                             @RequestParam(defaultValue = OFFSET_DEFAULT) Integer offset,
                                             @RequestParam(defaultValue = "true") boolean isActive) {
+    log.info("Get all menus");
     return ResponseEntity.ok(ApiResponse.builder()
             .data(service.getAll(limit, offset, isActive, keyword))
             .success(true)

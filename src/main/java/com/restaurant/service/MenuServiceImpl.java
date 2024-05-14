@@ -32,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
    * @param keyword  the keyword to use when searching for menus
    * @return a Page object containing the requested Menu objects
    */
-  @Cacheable(value = "menus", key = "{#limit, #offset, #isActive, #keyword}")
+//  @Cacheable(value = "menus", key = "{#limit, #offset, #isActive, #keyword}")
   @Override
   public List<Menu> getAll(Integer limit, Integer offset, Boolean isActive, String keyword) {
     if (limit < 0 || offset < 0 || offset > 1000) {
@@ -76,7 +76,7 @@ public class MenuServiceImpl implements MenuService {
    * @throws NoContentException  if the specified menu does not exist
    * @throws RepeatDataException if a menu with the same name already exists
    */
-  @CacheEvict(value = "menus", key = "{#id}")
+//  @CacheEvict(value = "menus", key = "{#id}")
   @Override
   public Menu update(Long id, Menu menuDto) {
     Menu foundMenu = repository.findByIdAndIsActive(id, true)
@@ -101,7 +101,7 @@ public class MenuServiceImpl implements MenuService {
    * @param id the ID of the Menu object to delete
    * @throws NoContentException if the specified menu does not exist
    */
-  @CacheEvict(value = "menus", key = "{#id}")
+//  @CacheEvict(value = "menus", key = "{#id}")
   @Override
   public void delete(Long id) {
     repository.findByIdAndIsActive(id, true)
@@ -117,7 +117,7 @@ public class MenuServiceImpl implements MenuService {
    * @return the Menu object with the specified ID
    * @throws NoContentException if the specified menu does not exist
    */
-  @Cacheable(value = "menus", key = "{#id}")
+//  @Cacheable(value = "menus", key = "{#id}")
   @Override
   public Menu findById(Long id) {
     Optional<Menu> optional = repository.findByIdAndIsActive(id, true);

@@ -28,12 +28,12 @@ redis:
   connectTimeoutInSecond: 60 # ms
 
 # Debug for spring security
-logging:
-  level:
-    org:
-      springframework:
-        security: TRACE
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        security: TRACE
 
-# Change the default port
-server:
-  port: 8081
+## Change the default port
+#server:
+#  port: 8081
