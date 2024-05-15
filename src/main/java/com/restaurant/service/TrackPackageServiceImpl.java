@@ -1,48 +1,41 @@
 package com.restaurant.service;
 
-import lombok.AllArgsConstructor;
+import com.restaurant.rest.TrackingPackageRestClient;
+import com.restaurant.rest.TuanMotorbikeRestClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 @Service
-@AllArgsConstructor
 public class TrackPackageServiceImpl implements TrackPackageService {
-  private WebClient webClient;
 
-  public static String trackingNumberFunc(String resi) {
-      String k = "MGViZmZmZTYzZDJhNDgxY2Y1N2ZlN2Q1ZWJkYzlmZDY=";
-      long r = System.currentTimeMillis() / 1000L;
-      String rs = String.valueOf(r);
-      String data = resi + rs + k;
+  private final TrackingPackageRestClient trackingPackageRestClient;
+  private final TuanMotorbikeRestClient tuanMotorbikeRestClient;
 
-      String hash;
-      try {
-          MessageDigest md = MessageDigest.getInstance("SHA-256");
-          byte[] hashedBytes = md.digest(data.getBytes());
-
-          // Convert byte array to hexadecimal representation
-          StringBuilder sb = new StringBuilder();
-          for (byte b : hashedBytes) {
-              sb.append(String.format("%02x", b));
-          }
-          hash = sb.toString();
-      } catch (NoSuchAlgorithmException e) {
-          throw new RuntimeException("Error creating SHA-256 hash", e);
-      }
-
-      return resi + "|" + rs + hash;
+  public TrackPackageServiceImpl(TrackingPackageRestClient trackingPackageRestClient, TuanMotorbikeRestClient tuanMotorbikeRestClient) {
+    this.trackingPackageRestClient = trackingPackageRestClient;
+    this.tuanMotorbikeRestClient = tuanMotorbikeRestClient;
   }
 
   @Override
-  public Mono<String> getTrackPackage(String trackingNumber) {
-    return webClient.get()
-            .uri("https://spx.vn/api/v2/fleet_order/tracking/search?sls_tracking_number={trackingNumber}",
-                    trackingNumberFunc(trackingNumber))
-            .retrieve().bodyToMono(String.class);
+  public ResponseEntity<String> getTrackPackage(String trackingNumber) throws ExecutionException, InterruptedException {
+    // get all motorbikes and track package
+    var motorbikes = tuanMotorbikeRestClient.getTuanMotorbike();
+    var trackPackage = trackingPackageRestClient.getTrackPackage(trackingNumber);
+
+    CompletableFuture.allOf(motorbikes, trackPackage).join();
+
+//    System.out.println("Motorbikes: " + motorbikes.get().getBody());
+//    System.out.println("Track package: " + trackPackage.get().getBody());
+
+    // return the response
+    return ResponseEntity.ok("Get all motorbikes and track package");
+
   }
+
+
+
 
 }

@@ -1,8 +1,10 @@
 package com.restaurant.service;
 
-import reactor.core.publisher.Mono;
+import org.springframework.http.ResponseEntity;
+
+import java.util.concurrent.ExecutionException;
 
 public interface TrackPackageService {
-  Mono<String> getTrackPackage(String trackingNumber);
+  ResponseEntity<String> getTrackPackage(String trackingNumber) throws ExecutionException, InterruptedException;
 
 }
