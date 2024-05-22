@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'jacoco'
+    id "maven-publish"
     id 'org.springframework.boot' version '3.0.4'
     id 'io.spring.dependency-management' version '1.1.0'
 }
@@ -19,6 +20,14 @@ sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/mie6996/health-check-utils")
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
+
 }
 
 dependencies {
@@ -30,7 +39,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-data-redis"
     implementation 'org.springframework.boot:spring-boot-starter-cache:2.4.3'
     implementation 'org.springframework.boot:spring-boot-starter-jooq:2.7.11'
-    implementation fileTree(dir: '../health-check-microservices/build/libs', include: '*.jar')
+    implementation 'com.micro.healthcheck:health-check-utils:1.0.0'
 
     implementation "io.lettuce:lettuce-core:6.2.6.RELEASE"
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
