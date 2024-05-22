@@ -1,4 +1,4 @@
-package com.restaurant.service;
+package com.restaurant.service.impl;
 
 import com.restaurant.dto.OrderItemRequestDto;
 import com.restaurant.entity.Menu;
@@ -8,6 +8,7 @@ import com.restaurant.exception.NoContentException;
 import com.restaurant.repository.MenuRepository;
 import com.restaurant.repository.OrderItemRepository;
 import com.restaurant.repository.OrderRepository;
+import com.restaurant.service.OrderItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

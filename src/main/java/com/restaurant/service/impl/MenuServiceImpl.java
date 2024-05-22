@@ -1,19 +1,18 @@
-package com.restaurant.service;
+package com.restaurant.service.impl;
 
 import com.restaurant.entity.Menu;
 import com.restaurant.exception.NoContentException;
 import com.restaurant.exception.RepeatDataException;
 import com.restaurant.mapper.ObjectMapper;
 import com.restaurant.repository.MenuRepository;
+import com.restaurant.service.MenuService;
 import lombok.AllArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.restaurant.util.Utils.removeSpaces;
+import static com.restaurant.util.Util.removeSpaces;
 
 /**
  * This class provides an implementation of the MenuService interface.

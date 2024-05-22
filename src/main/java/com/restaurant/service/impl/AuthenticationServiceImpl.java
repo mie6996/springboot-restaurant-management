@@ -1,4 +1,4 @@
-package com.restaurant.service;
+package com.restaurant.service.impl;
 
 import com.restaurant.config.JwtService;
 import com.restaurant.dto.AuthenticationResponseDto;
@@ -7,6 +7,7 @@ import com.restaurant.dto.RegisterRequestDto;
 import com.restaurant.entity.Role;
 import com.restaurant.entity.User;
 import com.restaurant.repository.UserRepository;
+import com.restaurant.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

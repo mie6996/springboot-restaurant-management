@@ -1,4 +1,4 @@
-package com.restaurant.service;
+package com.restaurant.service.impl;
 
 import com.restaurant.dto.OrderItemRequestDto;
 import com.restaurant.dto.OrderRequestDto;
@@ -8,6 +8,7 @@ import com.restaurant.entity.OrderItem;
 import com.restaurant.exception.NoContentException;
 import com.restaurant.repository.MenuRepository;
 import com.restaurant.repository.OrderRepository;
+import com.restaurant.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

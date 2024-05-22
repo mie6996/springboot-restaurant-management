@@ -35,7 +35,7 @@ public class SecurityConfig {
       .cors(cors -> cors.configurationSource(corsConfigurationSource()))
       .authorizeHttpRequests()
       .shouldFilterAllDispatcherTypes(false) // Disable filter for all dispatcher types
-      .requestMatchers("/api/**")
+      .requestMatchers(new String[]{"/api/**", "/api/v1/web-client/**", "/api/v1/health-check"})
         .permitAll()
       .anyRequest()
         .authenticated()

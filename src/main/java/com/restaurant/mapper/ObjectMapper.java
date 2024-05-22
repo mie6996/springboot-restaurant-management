@@ -2,7 +2,7 @@ package com.restaurant.mapper;
 
 import com.restaurant.entity.Menu;
 
-import static com.restaurant.util.Utils.removeSpaces;
+import static com.restaurant.util.Util.removeSpaces;
 
 public class ObjectMapper {
   public static Menu mapDtoToEntity(Menu dto) {

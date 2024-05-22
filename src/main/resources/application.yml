@@ -37,3 +37,7 @@ redis:
 ## Change the default port
 #server:
 #  port: 8081
+
+info:
+  app:
+    version: 1.0.0
