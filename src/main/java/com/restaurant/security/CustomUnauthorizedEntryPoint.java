@@ -17,9 +17,11 @@ import java.io.IOException;
 @Slf4j
 @Component
 public class CustomUnauthorizedEntryPoint implements AuthenticationEntryPoint {
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        log.error("Unauthorized error: {}", authException.getMessage());
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-    }
+
+  @Override
+  public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
+    log.error("Unauthorized error: {}", authException.getMessage());
+    response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+  }
+
 }

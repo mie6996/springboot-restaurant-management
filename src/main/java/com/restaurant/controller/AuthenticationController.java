@@ -23,10 +23,10 @@ public class AuthenticationController {
   public ResponseEntity<ApiResponse> register(@RequestBody RegisterRequestDto requestDto) {
 
     return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.builder()
-            .success(true)
-            .data(service.register(requestDto))
-            .message("Login successfully!")
-            .build());
+        .success(true)
+        .data(service.register(requestDto))
+        .message("Login successfully!")
+        .build());
 
   }
 

@@ -40,12 +40,12 @@ public class RedisConfig {
   @Bean
   public CacheManager cacheManager(LettuceConnectionFactory lettuceConnectionFactory) {
     RedisCacheManagerBuilder redisCacheManagerDefault = RedisCacheManagerBuilder
-            .fromConnectionFactory(lettuceConnectionFactory)
-            .cacheDefaults(RedisCacheConfiguration
+        .fromConnectionFactory(lettuceConnectionFactory)
+        .cacheDefaults(RedisCacheConfiguration
             .defaultCacheConfig()
             .entryTtl(RedisCacheConfiguration.defaultCacheConfig().getTtl())
             .serializeValuesWith(RedisSerializationContext.SerializationPair
-                    .fromSerializer(new GenericJackson2JsonRedisSerializer())));
+                .fromSerializer(new GenericJackson2JsonRedisSerializer())));
     return redisCacheManagerDefault.build();
   }
 
@@ -61,5 +61,5 @@ public class RedisConfig {
   public CustomCacheManager customCacheManager(CacheManager cacheManager, RedisTemplate<String, Object> redisTemplate) {
     return new CustomCacheManager(cacheManager, redisTemplate);
   }
-  
+
 }

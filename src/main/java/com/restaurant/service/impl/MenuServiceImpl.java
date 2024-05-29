@@ -7,7 +7,6 @@ import com.restaurant.mapper.ObjectMapper;
 import com.restaurant.repository.MenuRepository;
 import com.restaurant.service.MenuService;
 import com.restaurant.util.CustomCacheManager;
-import lombok.AllArgsConstructor;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +20,13 @@ import static com.restaurant.util.Util.removeSpaces;
  */
 @Service
 public class MenuServiceImpl implements MenuService {
-  private MenuRepository repository;
-  private CustomCacheManager customCacheManager;
+  private final MenuRepository repository;
+  private final CustomCacheManager customCacheManager;
 
-    public MenuServiceImpl(MenuRepository repository, CustomCacheManager customCacheManager) {
-        this.repository = repository;
-        this.customCacheManager = customCacheManager;
-    }
+  public MenuServiceImpl(MenuRepository repository, CustomCacheManager customCacheManager) {
+    this.repository = repository;
+    this.customCacheManager = customCacheManager;
+  }
 
   /**
    * Retrieves a paginated list of Menu objects based on the given parameters.
@@ -48,7 +47,6 @@ public class MenuServiceImpl implements MenuService {
     if (keyword != null) {
       keyword = removeSpaces(keyword);
     }
-
     return repository.findAll(offset, limit, isActive, keyword);
   }
 
@@ -62,7 +60,7 @@ public class MenuServiceImpl implements MenuService {
   @Override
   public Menu create(Menu menuDto) {
     List<Menu> foundMenusByName =
-            repository.findMenuByNameAndIsActive(removeSpaces(menuDto.getName()), true);
+        repository.findMenuByNameAndIsActive(removeSpaces(menuDto.getName()), true);
 
     // Check if the menu already exists by checking if the name exists
     if (foundMenusByName.size() >= 1) {
@@ -84,15 +82,14 @@ public class MenuServiceImpl implements MenuService {
    * @throws NoContentException  if the specified menu does not exist
    * @throws RepeatDataException if a menu with the same name already exists
    */
-//  @CacheEvict(value = "menus", key = "{#id}")
   @Override
   public Menu update(Long id, Menu menuDto) {
     Menu foundMenu = repository.findByIdAndIsActive(id, true)
-            .orElseThrow(() -> new NoContentException("This menu does not exist!"));
+        .orElseThrow(() -> new NoContentException("This menu does not exist!"));
 
     // Found menu by name
     List<Menu> foundMenusByName =
-            repository.findMenuByNameAndIsActive(removeSpaces(menuDto.getName()), true);
+        repository.findMenuByNameAndIsActive(removeSpaces(menuDto.getName()), true);
     // If the menu has name already exists and not is found menu throw RepeatDataException
     if (foundMenusByName.size() == 1 && !foundMenusByName.get(0).equals(foundMenu)) {
       throw new RepeatDataException("The menu already exists!");
@@ -109,11 +106,10 @@ public class MenuServiceImpl implements MenuService {
    * @param id the ID of the Menu object to delete
    * @throws NoContentException if the specified menu does not exist
    */
-//  @CacheEvict(value = "menus", key = "{#id}")
   @Override
   public void delete(Long id) {
     repository.findByIdAndIsActive(id, true)
-            .orElseThrow(() -> new NoContentException("This menu does not exist!"));
+        .orElseThrow(() -> new NoContentException("This menu does not exist!"));
 
     repository.softDeleteById(id);
   }
@@ -125,7 +121,6 @@ public class MenuServiceImpl implements MenuService {
    * @return the Menu object with the specified ID
    * @throws NoContentException if the specified menu does not exist
    */
-//  @Cacheable(value = "menus", key = "{#id}")
   @Override
   public Menu findById(Long id) {
     Optional<Menu> optional = repository.findByIdAndIsActive(id, true);
@@ -133,7 +128,6 @@ public class MenuServiceImpl implements MenuService {
     if (optional.isEmpty()) {
       throw new NoContentException("The menu has id = " + id + " does not exist!");
     }
-
     return optional.get();
   }
 

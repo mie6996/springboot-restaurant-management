@@ -1,7 +1,6 @@
 package com.restaurant.config;
 
 import com.restaurant.security.CustomUnauthorizedEntryPoint;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -21,46 +20,49 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
   private final JwtAuthenticationFilter jwtAuthFilter;
   private final AuthenticationProvider authenticationProvider;
+
+  public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) {
+    this.jwtAuthFilter = jwtAuthFilter;
+    this.authenticationProvider = authenticationProvider;
+  }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
     http
-      .csrf()
-      .disable()
-      .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-      .authorizeHttpRequests()
-      .shouldFilterAllDispatcherTypes(false) // Disable filter for all dispatcher types
-      .requestMatchers(new String[]{"/api/**", "/api/v1/web-client/**", "/api/v1/health-check"})
+        .csrf()
+        .disable()
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .authorizeHttpRequests()
+        .shouldFilterAllDispatcherTypes(false) // Disable filter for all dispatcher types
+        .requestMatchers(new String[]{"/api/**", "/api/v1/web-client/**", "/api/v1/health-check"})
         .permitAll()
-      .anyRequest()
+        .anyRequest()
         .authenticated()
-      .and()
+        .and()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-      .and()
-      .authenticationProvider(authenticationProvider)
-      .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-      .exceptionHandling(exceptionHandling -> exceptionHandling
-                      .authenticationEntryPoint(unauthorizedHandler())
-                      .accessDeniedHandler(accessDeniedHandler())
-                );
+        .and()
+        .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        .exceptionHandling(exceptionHandling -> exceptionHandling
+            .authenticationEntryPoint(unauthorizedHandler())
+            .accessDeniedHandler(accessDeniedHandler()));
     return http.build();
 
   }
 
-   @Bean
+  @Bean
   public AuthenticationEntryPoint unauthorizedHandler() {
-      return new CustomUnauthorizedEntryPoint();
+    return new CustomUnauthorizedEntryPoint();
   }
 
   @Bean
   public AccessDeniedHandler accessDeniedHandler() {
-      return new AccessDeniedHandlerImpl();
+    return new AccessDeniedHandlerImpl();
   }
 
   @Bean
@@ -71,7 +73,7 @@ public class SecurityConfig {
     config.setAllowedOrigins(List.of("*"));
     config.setAllowedOriginPatterns(List.of("*"));
     config.setAllowedHeaders(List.of("Content-Type", "X-Frame-Options", "X-XSS-Protection",
-            "X-Content-Type-Options", "Strict-Transport-Security", "Authorization"));
+        "X-Content-Type-Options", "Strict-Transport-Security", "Authorization"));
     config.setAllowedMethods(List.of("OPTIONS", "GET", "POST", "PUT", "DELETE"));
     config.setExposedHeaders(List.of("ERROR_CODE"));
     config.setAllowCredentials(false);

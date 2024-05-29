@@ -10,15 +10,15 @@ import java.lang.reflect.Method;
 @Slf4j
 public class CustomKeyGenerator implements KeyGenerator {
 
-    @Override
-    public Object generate(Object target, Method method, Object... params) {
-        StringBuilder keyBuilder = new StringBuilder();
-        keyBuilder.append(method.getName());
+  @Override
+  public Object generate(Object target, Method method, Object... params) {
+    StringBuilder keyBuilder = new StringBuilder();
+    keyBuilder.append(method.getName());
 
-        for (Object param : params) {
-            keyBuilder.append("_").append(param.toString());
-        }
-        log.info("Generated key: {}", keyBuilder.toString());
-        return keyBuilder.toString();
+    for (Object param : params) {
+      keyBuilder.append("_").append(param.toString());
     }
+    log.info("Generated key: {}", keyBuilder.toString());
+    return keyBuilder.toString();
+  }
 }

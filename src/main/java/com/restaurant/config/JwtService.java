@@ -16,6 +16,7 @@ import java.util.Map;
 
 @Service
 public class JwtService {
+
   @Value("${jwt.token.secret-key}")
   private String SECRET_KEY;
   @Value("${jwt.token.expiration}")
@@ -36,31 +37,30 @@ public class JwtService {
     return generateAccessToken(new HashMap<>(), userDetails);
   }
 
+  public String generateAccessToken(
+      Map<String, Object> extraClaims,
+      UserDetails userDetails
+  ) {
+    return Jwts.builder()
+        .setClaims(extraClaims)
+        .setSubject(userDetails.getUsername())
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION))
+        .signWith(getSignInKey())
+        .compact();
+  }
+
   public String generateRefreshToken() {
     return generateRefreshToken(new HashMap<>());
   }
 
-
-  public String generateAccessToken(
-          Map<String, Object> extraClaims,
-          UserDetails userDetails
-  ) {
-    return Jwts.builder()
-            .setClaims(extraClaims)
-            .setSubject(userDetails.getUsername())
-            .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_EXPIRATION))
-            .signWith(getSignInKey())
-            .compact();
-  }
-
   public String generateRefreshToken(Map<String, Object> extraClaims) {
     return Jwts.builder()
-            .setClaims(extraClaims)
-            .setIssuedAt(new Date(System.currentTimeMillis()))
-            .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION))
-            .signWith(getSignInKey())
-            .compact();
+        .setClaims(extraClaims)
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + REFRESH_EXPIRATION))
+        .signWith(getSignInKey())
+        .compact();
   }
 
 
@@ -79,10 +79,10 @@ public class JwtService {
 
   private Claims extractAllClaims(String token) {
     return Jwts.parserBuilder()
-            .setSigningKey(getSignInKey())
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
+        .setSigningKey(getSignInKey())
+        .build()
+        .parseClaimsJws(token)
+        .getBody();
 
   }
 

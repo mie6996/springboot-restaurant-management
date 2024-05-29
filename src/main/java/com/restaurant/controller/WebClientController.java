@@ -15,33 +15,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/web-client")
 public class WebClientController {
 
-    private final TrackPackageService trackPackageService;
-    private final TuanMotorbikeService tuanMotorbikeService;
+  private final TrackPackageService trackPackageService;
+  private final TuanMotorbikeService tuanMotorbikeService;
 
-    @Autowired
-    public WebClientController(TrackPackageService trackPackageService, TuanMotorbikeService tuanMotorbikeService) {
-        this.trackPackageService = trackPackageService;
-        this.tuanMotorbikeService = tuanMotorbikeService;
-    }
+  @Autowired
+  public WebClientController(TrackPackageService trackPackageService, TuanMotorbikeService tuanMotorbikeService) {
+    this.trackPackageService = trackPackageService;
+    this.tuanMotorbikeService = tuanMotorbikeService;
+  }
 
-    @GetMapping("/track-package")
-    public ResponseEntity<String> getTrackPackage(@RequestParam String trackingNumber) {
-        log.info("Get track package");
-        long startTime = System.currentTimeMillis();
-        var response = trackPackageService.getTrackPackage(trackingNumber);
-        long endTime = System.currentTimeMillis();
-        log.info("Time taken: " + (endTime - startTime) + "ms");
-        return ResponseEntity.ok(response.getBody());
-    }
+  @GetMapping("/track-package")
+  public ResponseEntity<String> getTrackPackage(@RequestParam String trackingNumber) {
+    log.info("Get track package");
+    long startTime = System.currentTimeMillis();
+    var response = trackPackageService.getTrackPackage(trackingNumber);
+    long endTime = System.currentTimeMillis();
+    log.info("Time taken: " + (endTime - startTime) + "ms");
+    return ResponseEntity.ok(response.getBody());
+  }
 
-    @GetMapping("/motorbikes")
-    public ResponseEntity<String> getMotorbikes() {
-        log.info("Get track package");
-        long startTime = System.currentTimeMillis();
-        var response = tuanMotorbikeService.getMotorbikes();
-        long endTime = System.currentTimeMillis();
-        log.info("Time taken: " + (endTime - startTime) + "ms");
-        return ResponseEntity.ok(response.getBody());
-    }
+  @GetMapping("/motorbikes")
+  public ResponseEntity<String> getMotorbikes() {
+    log.info("Get track package");
+    long startTime = System.currentTimeMillis();
+    var response = tuanMotorbikeService.getMotorbikes();
+    long endTime = System.currentTimeMillis();
+    log.info("Time taken: " + (endTime - startTime) + "ms");
+    return ResponseEntity.ok(response.getBody());
+  }
 
 }

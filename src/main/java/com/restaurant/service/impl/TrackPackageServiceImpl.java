@@ -1,12 +1,9 @@
 package com.restaurant.service.impl;
 
 import com.restaurant.rest.TrackingPackageRestClient;
-import com.restaurant.rest.impl.TrackingPackageRestClientImpl;
 import com.restaurant.service.TrackPackageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class TrackPackageServiceImpl implements TrackPackageService {
@@ -25,7 +22,7 @@ public class TrackPackageServiceImpl implements TrackPackageService {
     // wait for the response
     try {
       var trackPackageResponse = trackPackage.get();
-        return ResponseEntity.ok(trackPackageResponse.getBody());
+      return ResponseEntity.ok(trackPackageResponse.getBody());
     } catch (Exception e) {
       return ResponseEntity.badRequest().body("Invalid tracking number");
     }

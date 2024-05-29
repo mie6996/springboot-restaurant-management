@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.RestController;
 @ComponentScan("com.micro.healthcheck")
 @RequestMapping("/api/v1/health-check")
 public class HealthCheckController {
-    private final HealthCheckService healthCheckService;
 
-    public HealthCheckController(HealthCheckService healthCheckService) {
-        this.healthCheckService = healthCheckService;
-    }
+  private final HealthCheckService healthCheckService;
 
-    @RequestMapping
-    public HealthCheckResponse healthCheck() {
-        return healthCheckService.doHealthCheck();
-    }
+  public HealthCheckController(HealthCheckService healthCheckService) {
+    this.healthCheckService = healthCheckService;
+  }
+
+  @RequestMapping
+  public HealthCheckResponse healthCheck() {
+    return healthCheckService.doHealthCheck();
+  }
+
 }

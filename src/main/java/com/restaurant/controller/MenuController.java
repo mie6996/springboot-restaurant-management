@@ -48,10 +48,10 @@ public class MenuController {
                                             @RequestParam(defaultValue = "true") boolean isActive) {
     log.info("Get all menus");
     return ResponseEntity.ok(ApiResponse.builder()
-            .data(service.getAll(limit, offset, isActive, keyword))
-            .success(true)
-            .message("Get menus successfully!")
-            .build()
+        .data(service.getAll(limit, offset, isActive, keyword))
+        .success(true)
+        .message("Get menus successfully!")
+        .build()
     );
   }
 
@@ -64,10 +64,10 @@ public class MenuController {
   @PostMapping("")
   public ResponseEntity<ApiResponse> create(@Valid @RequestBody Menu menu) {
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.builder()
-                    .data(service.create(menu))
-                    .success(true)
-                    .message("Create menu successfully!")
-                    .build());
+        .data(service.create(menu))
+        .success(true)
+        .message("Create menu successfully!")
+        .build());
   }
 
   /**
@@ -81,10 +81,10 @@ public class MenuController {
   public ResponseEntity<ApiResponse> update(@PathVariable Long id, @Valid @RequestBody Menu menu) {
 
     return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.builder()
-                    .data(service.update(id, menu))
-                    .success(true)
-                    .message("Update the menu successfully!")
-                    .build());
+        .data(service.update(id, menu))
+        .success(true)
+        .message("Update the menu successfully!")
+        .build());
 
   }
 
@@ -98,9 +98,9 @@ public class MenuController {
   public ResponseEntity<ApiResponse> delete(@PathVariable Long id) {
     service.delete(id);
     return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.builder()
-                    .success(true)
-                    .message("Delete menu successfully!")
-                    .build());
+        .success(true)
+        .message("Delete menu successfully!")
+        .build());
   }
 
   /**
@@ -113,10 +113,10 @@ public class MenuController {
   public ResponseEntity<ApiResponse> getById(@PathVariable Long id) {
     Menu menu = service.findById(id);
     return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.builder()
-                    .data(menu)
-                    .success(true)
-                    .message("Find menu has id = " + id + " successfully!")
-                    .build());
+        .data(menu)
+        .success(true)
+        .message("Find menu has id = " + id + " successfully!")
+        .build());
   }
 
 }

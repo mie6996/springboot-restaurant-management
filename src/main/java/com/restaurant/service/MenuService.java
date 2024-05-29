@@ -9,9 +9,13 @@ import java.util.List;
  */
 public interface MenuService {
   Menu create(Menu dto);
+
   List<Menu> getAll(Integer limit, Integer offset, Boolean isActive, String keyword);
+
   Menu update(Long id, Menu dto);
+
   void delete(Long id);
+
   Menu findById(Long id);
 
 }
