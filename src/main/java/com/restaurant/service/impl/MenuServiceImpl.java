@@ -38,8 +38,8 @@ public class MenuServiceImpl implements MenuService {
    * @param keyword  the keyword to use when searching for menus
    * @return a Page object containing the requested Menu objects
    */
-  @Cacheable(cacheNames = Constants.CACHE_NAME_MENUS, keyGenerator = "customKeyGenerator")
   @Override
+  @Cacheable(cacheNames = Constants.CACHE_NAME_MENUS, keyGenerator = "customKeyGenerator")
   public List<Menu> getAll(Integer limit, Integer offset, Boolean isActive, String keyword) {
     if (limit < 0 || offset < 0 || offset > 1000) {
       throw new IllegalArgumentException("Page limit and offset must be positive");

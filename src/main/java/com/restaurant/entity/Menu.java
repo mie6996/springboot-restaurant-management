@@ -31,6 +31,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "Menus")
 public class Menu {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   Long id;

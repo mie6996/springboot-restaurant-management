@@ -66,7 +66,7 @@ public class MenuRepository {
             .from(table(TABLE_NAME))
             .where(conditions)
             .limit(limit)
-            .offset(offset)
+            .offset(offset * limit)
             .fetch()
             .into(Menu.class);
   }

@@ -42,7 +42,7 @@ public class MenuController {
    * @return response containing list of menus
    */
   @GetMapping("")
-  public ResponseEntity<ApiResponse> getAll(@RequestParam(required = false) String keyword,
+  public ResponseEntity<ApiResponse> getAll(@RequestParam(required = false, defaultValue = "") String keyword,
                                             @RequestParam(defaultValue = LIMIT_DEFAULT) Integer limit,
                                             @RequestParam(defaultValue = OFFSET_DEFAULT) Integer offset,
                                             @RequestParam(defaultValue = "true") boolean isActive) {
