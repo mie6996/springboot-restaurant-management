@@ -8,6 +8,7 @@ import java.util.List;
  * Menu service
  */
 public interface MenuService {
+
   Menu create(Menu dto);
 
   List<Menu> getAll(Integer limit, Integer offset, Boolean isActive, String keyword);

@@ -1,5 +1,6 @@
 package com.restaurant.service.impl;
 
+import com.restaurant.constant.Constants;
 import com.restaurant.entity.Menu;
 import com.restaurant.exception.NoContentException;
 import com.restaurant.exception.RepeatDataException;
@@ -37,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
    * @param keyword  the keyword to use when searching for menus
    * @return a Page object containing the requested Menu objects
    */
-  @Cacheable(cacheNames = "menus", keyGenerator = "customKeyGenerator")
+  @Cacheable(cacheNames = Constants.CACHE_NAME_MENUS, keyGenerator = "customKeyGenerator")
   @Override
   public List<Menu> getAll(Integer limit, Integer offset, Boolean isActive, String keyword) {
     if (limit < 0 || offset < 0 || offset > 1000) {
@@ -63,11 +64,11 @@ public class MenuServiceImpl implements MenuService {
         repository.findMenuByNameAndIsActive(removeSpaces(menuDto.getName()), true);
 
     // Check if the menu already exists by checking if the name exists
-    if (foundMenusByName.size() >= 1) {
+    if (!foundMenusByName.isEmpty()) {
       throw new RepeatDataException("The menu already exists!");
     }
 
-    customCacheManager.clearCache("menus", "getAll");
+    customCacheManager.clearCache(Constants.CACHE_NAME_MENUS, "getAll");
 
     Menu menuEntity = ObjectMapper.mapDtoToEntity(menuDto);
     return repository.save(menuEntity);

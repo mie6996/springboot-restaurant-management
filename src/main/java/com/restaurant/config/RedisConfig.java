@@ -1,6 +1,8 @@
 package com.restaurant.config;
 
+import com.restaurant.constant.Constants;
 import com.restaurant.util.CustomCacheManager;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +18,9 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.Duration;
+
+@Data
 @Configuration
 public class RedisConfig {
   @Value("${redis.host}")
@@ -26,6 +31,9 @@ public class RedisConfig {
 
   @Value("${redis.password}")
   private String redisPassword;
+
+  @Value("${redis.ttl-menus}")
+  private long ttlMenus;
 
   @Bean
   public LettuceConnectionFactory redisConnectionFactory() {
@@ -46,7 +54,17 @@ public class RedisConfig {
             .entryTtl(RedisCacheConfiguration.defaultCacheConfig().getTtl())
             .serializeValuesWith(RedisSerializationContext.SerializationPair
                 .fromSerializer(new GenericJackson2JsonRedisSerializer())));
-    return redisCacheManagerDefault.build();
+
+    RedisCacheConfiguration cacheConfigurationMenus = RedisCacheConfiguration
+        .defaultCacheConfig()
+        .entryTtl(Duration.ofMinutes(ttlMenus))
+        .disableCachingNullValues()
+        .serializeValuesWith(RedisSerializationContext.SerializationPair
+            .fromSerializer(new GenericJackson2JsonRedisSerializer()));
+
+    return redisCacheManagerDefault
+        .withCacheConfiguration(Constants.CACHE_NAME_MENUS, cacheConfigurationMenus)
+        .build();
   }
 
   @Bean

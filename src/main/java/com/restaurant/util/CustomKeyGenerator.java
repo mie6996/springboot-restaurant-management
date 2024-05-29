@@ -16,9 +16,9 @@ public class CustomKeyGenerator implements KeyGenerator {
     keyBuilder.append(method.getName());
 
     for (Object param : params) {
-      keyBuilder.append("_").append(param.toString());
+      keyBuilder.append(":").append(param.toString());
     }
-    log.info("Generated key: {}", keyBuilder.toString());
+    log.info("Generated key: {}", keyBuilder);
     return keyBuilder.toString();
   }
 }
