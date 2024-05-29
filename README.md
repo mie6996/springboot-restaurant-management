@@ -1,14 +1,36 @@
-# How to run this application?
 
-- Step 1: Install intelliJ, JDK 17 and docker
-- Step 2: Add env variables bellow:
-  - REDIS_HOST=localhost
-  - REDIS_PORT=6379
-  - SQL_USERNAME=postgres
-  - SQL_PASSWORD=postgres
-  - SQL_DATABASE_URL=jdbc:postgresql://localhost:54322/postgres
-- Step 3: Run docker-compose.yml
-```
-  docker-compose up
-```
-Step 4: Enjoy :)
+# Springboot restaurant management
+
+This is restaurant management software using spring boot 3.0
+
+
+
+## Acknowledgements
+
+ - Spring boot
+ - DI and IoC
+ - Github packages
+ - Pipeline
+ - Redis
+ - Railway for deployment
+ 
+
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`DATABASE_URL`
+`DATABASE_USERNAME`
+`DATABASE_PASSWORD`
+`REDIS_HOST`
+`REDIS_PORT`
+`REDIS_PASSWORD`
+`GITHUB_ACTOR`
+`GITHUB_TOKEN`
+
+
+## Authors
+
+ [@mie6996](https://www.github.com/mie6996)
+
