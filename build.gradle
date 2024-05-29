@@ -16,7 +16,7 @@ checkstyle {
 }
 
 group = 'com.restaurant'
-version = semver.version
+version = project.hasProperty('semver.version') ? project.semver.version : '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 repositories {
