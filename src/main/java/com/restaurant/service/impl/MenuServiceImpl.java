@@ -6,7 +6,9 @@ import com.restaurant.exception.RepeatDataException;
 import com.restaurant.mapper.ObjectMapper;
 import com.restaurant.repository.MenuRepository;
 import com.restaurant.service.MenuService;
+import com.restaurant.util.CustomCacheManager;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +20,14 @@ import static com.restaurant.util.Util.removeSpaces;
  * This class provides an implementation of the MenuService interface.
  */
 @Service
-@AllArgsConstructor
 public class MenuServiceImpl implements MenuService {
   private MenuRepository repository;
+  private CustomCacheManager customCacheManager;
+
+    public MenuServiceImpl(MenuRepository repository, CustomCacheManager customCacheManager) {
+        this.repository = repository;
+        this.customCacheManager = customCacheManager;
+    }
 
   /**
    * Retrieves a paginated list of Menu objects based on the given parameters.
@@ -31,7 +38,7 @@ public class MenuServiceImpl implements MenuService {
    * @param keyword  the keyword to use when searching for menus
    * @return a Page object containing the requested Menu objects
    */
-//  @Cacheable(value = "menus", key = "{#limit, #offset, #isActive, #keyword}")
+  @Cacheable(cacheNames = "menus", keyGenerator = "customKeyGenerator")
   @Override
   public List<Menu> getAll(Integer limit, Integer offset, Boolean isActive, String keyword) {
     if (limit < 0 || offset < 0 || offset > 1000) {
@@ -61,6 +68,8 @@ public class MenuServiceImpl implements MenuService {
     if (foundMenusByName.size() >= 1) {
       throw new RepeatDataException("The menu already exists!");
     }
+
+    customCacheManager.clearCache("menus", "getAll");
 
     Menu menuEntity = ObjectMapper.mapDtoToEntity(menuDto);
     return repository.save(menuEntity);
