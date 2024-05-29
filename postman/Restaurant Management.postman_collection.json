@@ -1,0 +1,778 @@
+{
+	"info": {
+		"_postman_id": "3493611a-850d-4e6c-8127-ba4835e64c03",
+		"name": "Final Project Spring Boot",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18090614"
+	},
+	"item": [
+		{
+			"name": "Env",
+			"item": [
+				{
+					"name": "Prod",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setEnvironmentVariable(\"API_URL\", \"https://springboot-restaurant-management-production.up.railway.app\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://google.com",
+							"protocol": "https",
+							"host": [
+								"google",
+								"com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Local",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"postman.setEnvironmentVariable(\"API_URL\", \"http://localhost:8080\");"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://google.com",
+							"protocol": "https",
+							"host": [
+								"google",
+								"com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Menus",
+			"item": [
+				{
+					"name": "Get all",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Test length content\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.content.length).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Compare name\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.data.content[0].name).to.eql(\"hawaiian pizza 3\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer  {{accessToken}}",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/menus?offset=2&limit=5",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"menus"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								},
+								{
+									"key": "keyword",
+									"value": "milk",
+									"disabled": true
+								},
+								{
+									"key": "isActive",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "isActive",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/menus/2",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"menus",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.iterationData.get(\"value\")\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{$randomWords}}\",\r\n    \"image\": \"{{$randomFoodImage}}\",\r\n    \"price\": {{$randomPrice}},\r\n    \"description\": \"{{$randomPhrase}}\",\r\n    \"additionalDetails\": \"{{$randomPhrase}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/v1/menus",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"menus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Hawaiian Pizza 11\",\r\n    \"image\": \"http://gg.gg/image.png\",\r\n    \"price\": 80.0,\r\n    \"additionalDetails\": \"Italian ham Pineapple\",\r\n    \"description\": \"All-time favourite toppings, Hawaiian pizza in Tropical Hawaii style.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/v1/menus/2",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"menus",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/menus/3",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"menus",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Order Item",
+					"item": [
+						{
+							"name": "Get by id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}/api/v1/orders/10/order-items?id=21",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"10",
+										"order-items"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "21"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}/api/v1/orders/2/order-items?id=3",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"2",
+										"order-items"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add order item",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"menuId\": 1,\r\n    \"quantity\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/api/v1/orders/1/order-items",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"1",
+										"order-items"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"quantity\": 3\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/api/v1/orders/2/order-items?id=4",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"orders",
+										"2",
+										"order-items"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "4"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderItems\": [\r\n        {\r\n            \"menuId\": 1,\r\n            \"quantity\": 4\r\n        },\r\n        {\r\n            \"menuId\": 3,\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/v1/orders",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/orders?offset=0&limit=10",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders"
+							],
+							"query": [
+								{
+									"key": "offset",
+									"value": "0"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/orders/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/orders/1",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const body = JSON.parse(responseBody)\r",
+									"console.log(body)\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"accessToken\", body.accessToken)\r",
+									"postman.setEnvironmentVariable(\"refreshToken\", body.refreshToken)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"nguyenxuanphat060301@gmail.com\",\r\n    \"password\": \"phatdeptrai\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/v1/auth/login",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Phat\",\r\n    \"lastName\": \"Nguyen\",\r\n    \"email\": \"nguyenxuanphat060301@gmail.com\",\r\n    \"password\": \"phatdeptrai\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/v1/auth/register",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{refreshToken}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accessToken\": \"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuZ3V5ZW54dWFucGhhdDA2MDMwMUBnbWFpbC5jb20iLCJpYXQiOjE2ODIzOTY3NjMsImV4cCI6MTY4MjM5NzEyM30.M3kVp6NByPuiGP5a_YVS_2w_DdCf92r1GZtzw4-o8Ys\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/api/v1/auth/refresh-token",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Log out",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/auth/logout",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Web Client",
+			"item": [
+				{
+					"name": "Track package SPX - SPXVN048106749441",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/web-client/track-package?trackingNumber=SPXVN048106749441",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web-client",
+								"track-package"
+							],
+							"query": [
+								{
+									"key": "trackingNumber",
+									"value": "SPXVN048106749441"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get tuan motorbikes",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{accessToken}}",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/web-client/motorbikes",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"web-client",
+								"motorbikes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health check",
+			"item": [
+				{
+					"name": "Check health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_URL}}/api/v1/health-check",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"health-check"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "accessToken",
+			"value": "xxxxxx"
+		}
+	]
+}
