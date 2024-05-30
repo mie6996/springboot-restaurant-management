@@ -1,11 +1,14 @@
 package com.restaurant.repository;
 
+import com.micro.healthcheck.api.DhpHealthIndicator;
+import com.micro.healthcheck.api.HealthStatus;
 import com.restaurant.entity.Menu;
 import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.impl.DefaultDSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -22,15 +25,19 @@ import static org.jooq.impl.DSL.table;
  * Menu repository
  */
 @Repository
-public class MenuRepository {
-  DefaultDSLContext dsl;
+public class MenuRepository implements DhpHealthIndicator {
+
+  private final DefaultDSLContext dsl;
+
+  private static final String TABLE_NAME = "menus";
+
+  @Value("${spring.datasource.url}")
+  private String databaseUrl;
 
   @Autowired
   public MenuRepository(DefaultDSLContext dsl) {
     this.dsl = dsl;
   }
-
-  private static final String TABLE_NAME = "menus";
 
   public List<Menu> findMenuByNameAndIsActive(String name, boolean isActive) {
     List<Condition> conditions = new ArrayList<>();
@@ -128,4 +135,21 @@ public class MenuRepository {
     return menu;
   }
 
+  @Override
+  public HealthStatus checkHealth() {
+    var healthy = true;
+    Exception exception = null;
+    try {
+      findByIdAndIsActive(973140161607729153L, true);
+    } catch (Exception e) {
+      exception = e;
+      healthy = false;
+    }
+
+    return HealthStatus.builder()
+        .healthy(healthy)
+        .urlBase(databaseUrl)
+        .exception(exception)
+        .build();
+  }
 }
