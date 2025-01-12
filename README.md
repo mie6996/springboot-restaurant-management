@@ -3,6 +3,7 @@
 
 This is restaurant management software using spring boot 3.0
 
+[![wakatime](https://wakatime.com/badge/user/50b05154-723b-4758-b980-5090529e43de/project/190d398f-505f-4844-814d-3272adffbad9.svg)](https://wakatime.com/badge/user/50b05154-723b-4758-b980-5090529e43de/project/190d398f-505f-4844-814d-3272adffbad9)
 
 
 ## Acknowledgements
